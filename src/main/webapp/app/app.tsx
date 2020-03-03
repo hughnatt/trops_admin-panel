@@ -29,7 +29,7 @@ export interface IAppProps extends StateProps, DispatchProps {}
 export const App = (props: IAppProps) => {
   useEffect(() => {
     props.getSession();
-    props.getProfile();
+    /* props.getProfile(); */
   }, []);
 
   const paddingTop = '60px';
