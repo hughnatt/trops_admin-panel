@@ -8,7 +8,7 @@ import Metrics from './metrics/metrics';
 import Configuration from './configuration/configuration';
 import Audits from './audits/audits';
 import Docs from './docs/docs';
-import Categories from './categories/categories';
+import Categories from './categories';
 
 const Routes = ({ match }) => (
   <div>

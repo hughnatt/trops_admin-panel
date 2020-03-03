@@ -1,0 +1,9 @@
+{
+  "categories": {
+    "home": {
+      "title": "Catégories"
+    },
+    "name": "Nom",
+    "parent": "Parent"
+  }
+}
