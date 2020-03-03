@@ -4,7 +4,7 @@ const config = {
 
 export default config;
 
-export const SERVER_API_URL = process.env.SERVER_API_URL;
+export const SERVER_API_URL = 'https://api.trops.space/';
 
 export const AUTHORITIES = {
   ADMIN: 'ROLE_ADMIN',

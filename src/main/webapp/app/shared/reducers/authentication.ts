@@ -3,6 +3,7 @@ import { Storage } from 'react-jhipster';
 
 import { REQUEST, SUCCESS, FAILURE } from 'app/shared/reducers/action-type.util';
 import { setLocale } from 'app/shared/reducers/locale';
+import { AUTHORITIES } from 'app/config/constants';
 
 export const ACTION_TYPES = {
   LOGIN: 'authentication/LOGIN',
@@ -70,7 +71,10 @@ export default (state: AuthenticationState = initialState, action): Authenticati
         showModalLogin: true
       };
     case SUCCESS(ACTION_TYPES.GET_SESSION): {
-      const isAuthenticated = action.payload && action.payload.data && action.payload.data.activated;
+      /* eslint-disable no-console */
+      console.log(action);
+      const isAuthenticated = action.payload && action.payload.data;
+      action.payload.data.authorities = [AUTHORITIES.ADMIN];
       return {
         ...state,
         isAuthenticated,
@@ -102,7 +106,7 @@ export const displayAuthError = message => ({ type: ACTION_TYPES.ERROR_MESSAGE, 
 export const getSession = () => async (dispatch, getState) => {
   await dispatch({
     type: ACTION_TYPES.GET_SESSION,
-    payload: axios.get('api/account')
+    payload: axios.get('users/me')
   });
 
   const { account } = getState().authentication;
@@ -112,19 +116,16 @@ export const getSession = () => async (dispatch, getState) => {
   }
 };
 
-export const login = (username, password, rememberMe = false) => async (dispatch, getState) => {
+export const login = (username, pwd, rememberMe = false) => async (dispatch, getState) => {
   const result = await dispatch({
     type: ACTION_TYPES.LOGIN,
-    payload: axios.post('api/authenticate', { username, password, rememberMe })
+    payload: axios.post('users/login', { email: username, password: pwd })
   });
-  const bearerToken = result.value.headers.authorization;
-  if (bearerToken && bearerToken.slice(0, 7) === 'Bearer ') {
-    const jwt = bearerToken.slice(7, bearerToken.length);
-    if (rememberMe) {
-      Storage.local.set(AUTH_TOKEN_KEY, jwt);
-    } else {
-      Storage.session.set(AUTH_TOKEN_KEY, jwt);
-    }
+  const bearerToken = result.value.data.token;
+  if (rememberMe) {
+    Storage.local.set(AUTH_TOKEN_KEY, bearerToken);
+  } else {
+    Storage.session.set(AUTH_TOKEN_KEY, bearerToken);
   }
   await dispatch(getSession());
 };
