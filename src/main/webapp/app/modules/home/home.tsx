@@ -16,7 +16,7 @@ export const Home = (props: IHomeProp) => {
   return (
     <Row>
       <Col md="9">
-        <h2>
+        {/* <h2>
           <Translate contentKey="home.title">Welcome, Java Hipster!</Translate>
         </h2>
         <p className="lead">
@@ -90,10 +90,10 @@ export const Home = (props: IHomeProp) => {
             Github
           </a>
           !
-        </p>
+        </p> */}
       </Col>
       <Col md="3" className="pad">
-        <span className="hipster rounded" />
+        {/* <span className="hipster rounded" /> */}
       </Col>
     </Row>
   );
