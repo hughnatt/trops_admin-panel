@@ -8,7 +8,7 @@ import { Translate, translate } from 'react-jhipster';
 
 const adminMenuItems = (
   <>
-    <MenuItem icon="user" to="/admin/user-management">
+    {/* <MenuItem icon="user" to="/admin/user-management">
       <Translate contentKey="global.menu.admin.userManagement">User management</Translate>
     </MenuItem>
     <MenuItem icon="tachometer-alt" to="/admin/metrics">
@@ -23,10 +23,13 @@ const adminMenuItems = (
     <MenuItem icon="bell" to="/admin/audits">
       <Translate contentKey="global.menu.admin.audits">Audits</Translate>
     </MenuItem>
-    {/* jhipster-needle-add-element-to-admin-menu - JHipster will add entities to the admin menu here */}
     <MenuItem icon="tasks" to="/admin/logs">
       <Translate contentKey="global.menu.admin.logs">Logs</Translate>
+    </MenuItem> */}
+    <MenuItem icon="list" to="/admin/category">
+      <Translate contentKey="global.menu.admin.categories">Categories</Translate>
     </MenuItem>
+    {/* jhipster-needle-add-element-to-admin-menu - JHipster will add entities to the admin menu here */}
   </>
 );
 
