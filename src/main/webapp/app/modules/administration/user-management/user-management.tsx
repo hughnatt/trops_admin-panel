@@ -56,7 +56,7 @@ export const UserManagement = (props: IUserManagementProps) => {
               <FontAwesomeIcon icon="sort" />
             </th>
             <th className="hand" onClick={sort('login')}>
-              <Translate contentKey="userManagement.login">Login</Translate>
+              <Translate contentKey="userManagement.name">Name</Translate>
               <FontAwesomeIcon icon="sort" />
             </th>
             <th className="hand" onClick={sort('email')}>
@@ -64,39 +64,19 @@ export const UserManagement = (props: IUserManagementProps) => {
               <FontAwesomeIcon icon="sort" />
             </th>
             <th />
-            <th className="hand" onClick={sort('langKey')}>
-              <Translate contentKey="userManagement.langKey">Lang Key</Translate>
-              <FontAwesomeIcon icon="sort" />
-            </th>
-            <th>
-              <Translate contentKey="userManagement.profiles">Profiles</Translate>
-            </th>
-            <th className="hand" onClick={sort('createdDate')}>
-              <Translate contentKey="userManagement.createdDate">Created Date</Translate>
-              <FontAwesomeIcon icon="sort" />
-            </th>
-            <th className="hand" onClick={sort('lastModifiedBy')}>
-              <Translate contentKey="userManagement.lastModifiedBy">Last Modified By</Translate>
-              <FontAwesomeIcon icon="sort" />
-            </th>
-            <th id="modified-date-sort" className="hand" onClick={sort('lastModifiedDate')}>
-              <Translate contentKey="userManagement.lastModifiedDate">Last Modified Date</Translate>
-              <FontAwesomeIcon icon="sort" />
-            </th>
-            <th />
           </tr>
         </thead>
         <tbody>
           {users.map((user, i) => (
-            <tr id={user.login} key={`user-${i}`}>
+            <tr id={user.name} key={`user-${i}`}>
               <td>
-                <Button tag={Link} to={`${match.url}/${user.login}`} color="link" size="sm">
+                <Button tag={Link} to={`${match.url}/${user.name}`} color="link" size="sm">
                   {user.id}
                 </Button>
               </td>
-              <td>{user.login}</td>
+              <td>{user.name}</td>
               <td>{user.email}</td>
-              <td>
+              {/* <td>
                 {user.activated ? (
                   <Button color="success" onClick={toggleActive(user)}>
                     <Translate contentKey="userManagement.activated">Activated</Translate>
@@ -106,24 +86,8 @@ export const UserManagement = (props: IUserManagementProps) => {
                     <Translate contentKey="userManagement.deactivated">Deactivated</Translate>
                   </Button>
                 )}
-              </td>
-              <td>{user.langKey}</td>
-              <td>
-                {user.authorities
-                  ? user.authorities.map((authority, j) => (
-                      <div key={`user-auth-${i}-${j}`}>
-                        <Badge color="info">{authority}</Badge>
-                      </div>
-                    ))
-                  : null}
-              </td>
-              <td>
-                <TextFormat value={user.createdDate} type="date" format={APP_DATE_FORMAT} blankOnInvalid />
-              </td>
-              <td>{user.lastModifiedBy}</td>
-              <td>
-                <TextFormat value={user.lastModifiedDate} type="date" format={APP_DATE_FORMAT} blankOnInvalid />
-              </td>
+              </td> */}
+            
               <td className="text-right">
                 <div className="btn-group flex-btn-group-container">
                   <Button tag={Link} to={`${match.url}/${user.login}`} color="info" size="sm">
