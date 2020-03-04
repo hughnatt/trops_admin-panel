@@ -15,8 +15,12 @@ export interface IUserManagementProps extends StateProps, DispatchProps, RouteCo
 export const UserManagement = (props: IUserManagementProps) => {
   const [pagination, setPagination] = useState(getSortState(props.location, ITEMS_PER_PAGE));
 
+  /* eslint-disable no-console */
+  console.log("Hello")
+
   useEffect(() => {
-    props.getUsers(pagination.activePage - 1, pagination.itemsPerPage, `${pagination.sort},${pagination.order}`);
+    const sortOrder = (pagination.order === 'asc' ? 1 : -1); 
+    props.getUsers(pagination.activePage - 1, pagination.itemsPerPage, `${pagination.sort},${sortOrder}`);
     props.history.push(`${props.location.pathname}?page=${pagination.activePage}&sort=${pagination.sort},${pagination.order}`);
   }, [pagination]);
 
@@ -51,11 +55,11 @@ export const UserManagement = (props: IUserManagementProps) => {
       <Table responsive striped>
         <thead>
           <tr>
-            <th className="hand" onClick={sort('id')}>
+            <th className="hand" onClick={sort('_id')}>
               <Translate contentKey="global.field.id">ID</Translate>
               <FontAwesomeIcon icon="sort" />
             </th>
-            <th className="hand" onClick={sort('login')}>
+            <th className="hand" onClick={sort('name')}>
               <Translate contentKey="userManagement.name">Name</Translate>
               <FontAwesomeIcon icon="sort" />
             </th>
@@ -70,8 +74,8 @@ export const UserManagement = (props: IUserManagementProps) => {
           {users.map((user, i) => (
             <tr id={user.name} key={`user-${i}`}>
               <td>
-                <Button tag={Link} to={`${match.url}/${user.name}`} color="link" size="sm">
-                  {user.id}
+                <Button tag={Link} to={`${match.url}/${user._id}`} color="link" size="sm">
+                  {user._id}
                 </Button>
               </td>
               <td>{user.name}</td>
@@ -90,13 +94,13 @@ export const UserManagement = (props: IUserManagementProps) => {
             
               <td className="text-right">
                 <div className="btn-group flex-btn-group-container">
-                  <Button tag={Link} to={`${match.url}/${user.login}`} color="info" size="sm">
+                  <Button tag={Link} to={`${match.url}/${user._id}`} color="info" size="sm">
                     <FontAwesomeIcon icon="eye" />{' '}
                     <span className="d-none d-md-inline">
                       <Translate contentKey="entity.action.view">View</Translate>
                     </span>
                   </Button>
-                  <Button tag={Link} to={`${match.url}/${user.login}/edit`} color="primary" size="sm">
+                  <Button tag={Link} to={`${match.url}/${user._id}/edit`} color="primary" size="sm">
                     <FontAwesomeIcon icon="pencil-alt" />{' '}
                     <span className="d-none d-md-inline">
                       <Translate contentKey="entity.action.edit">Edit</Translate>
@@ -104,10 +108,10 @@ export const UserManagement = (props: IUserManagementProps) => {
                   </Button>
                   <Button
                     tag={Link}
-                    to={`${match.url}/${user.login}/delete`}
+                    to={`${match.url}/${user._id}/delete`}
                     color="danger"
                     size="sm"
-                    disabled={account.login === user.login}
+                    disabled={account.login === user.name}
                   >
                     <FontAwesomeIcon icon="trash" />{' '}
                     <span className="d-none d-md-inline">

@@ -19,10 +19,10 @@ export const Home = (props: IHomeProp) => {
         <h2>
           <Translate contentKey="home.title"></Translate>
         </h2>
-        {account && account.name ? (
+        {account && account.login ? (
           <div>
             <Alert color="success">
-              <Translate contentKey="home.logged.message" interpolate={{ username: account.name }}>
+              <Translate contentKey="home.logged.message" interpolate={{ username: account.login }}>
                 You are logged in as user {account.name}.
               </Translate>
             </Alert>

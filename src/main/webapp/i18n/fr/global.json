@@ -41,10 +41,12 @@
       "currentpassword.placeholder": "Mot de passe actuel",
       "newpassword.label": "Nouveau mot de passe",
       "newpassword.placeholder": "Nouveau mot de passe",
-      "confirmpassword.label": "Confirmation du nouveau mot de passe",
-      "confirmpassword.placeholder": "Confirmation du nouveau mot de passe",
+      "confirmpassword.label": "Confirmation du mot de passe",
+      "confirmpassword.placeholder": "Confirmation du mot de passe",
       "email.label": "Email",
-      "email.placeholder": "Votre email"
+      "email.placeholder": "Votre email",
+      "password.label": "Mot de passe",
+      "password.placeholder": "Mot de passe"
     },
     "messages": {
       "info": {

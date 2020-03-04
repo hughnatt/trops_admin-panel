@@ -5,25 +5,30 @@ import { Button, Label, Row, Col } from 'reactstrap';
 import { AvForm, AvGroup, AvInput, AvField, AvFeedback } from 'availity-reactstrap-validation';
 import { Translate, translate } from 'react-jhipster';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import PasswordStrengthBar from 'app/shared/layout/password/password-strength-bar';
+
 
 import { locales, languages } from 'app/config/translation';
 import { getUser, getRoles, updateUser, createUser, reset } from './user-management.reducer';
 import { IRootState } from 'app/shared/reducers';
 
-export interface IUserManagementUpdateProps extends StateProps, DispatchProps, RouteComponentProps<{ login: string }> {}
+export interface IUserManagementUpdateProps extends StateProps, DispatchProps, RouteComponentProps<{ id: string }> {}
 
 export const UserManagementUpdate = (props: IUserManagementUpdateProps) => {
-  const [isNew, setIsNew] = useState(!props.match.params || !props.match.params.login);
+  const [isNew, setIsNew] = useState(!props.match.params || !props.match.params.id);
+  const [password, setPassword] = useState('');
 
   useEffect(() => {
     if (isNew) {
       props.reset();
     } else {
-      props.getUser(props.match.params.login);
+      props.getUser(props.match.params.id);
     }
-    props.getRoles();
+    // props.getRoles();
     return () => props.reset();
   }, []);
+
+  const updatePassword = event => setPassword(event.target.value);
 
   const handleClose = () => {
     props.history.push('/admin/user-management');
@@ -56,31 +61,31 @@ export const UserManagementUpdate = (props: IUserManagementUpdateProps) => {
             <p>Loading...</p>
           ) : (
             <AvForm onValidSubmit={saveUser}>
-              {user.id ? (
+              {user._id ? (
                 <AvGroup>
                   <Label for="id">
                     <Translate contentKey="global.field.id">ID</Translate>
                   </Label>
-                  <AvField type="text" className="form-control" name="id" required readOnly value={user.id} />
+                  <AvField type="text" className="form-control" name="id" required readOnly value={user._id} />
                 </AvGroup>
               ) : null}
               <AvGroup>
-                <Label for="login">
-                  <Translate contentKey="userManagement.login">Login</Translate>
+                <Label for="name">
+                  <Translate contentKey="userManagement.name">Name</Translate>
                 </Label>
                 <AvField
                   type="text"
                   className="form-control"
-                  name="login"
+                  name="name"
                   validate={{
                     required: {
                       value: true,
                       errorMessage: translate('register.messages.validate.login.required')
                     },
-                    pattern: {
-                      value: '^[_.@A-Za-z0-9-]*$',
-                      errorMessage: translate('register.messages.validate.login.pattern')
-                    },
+                    // pattern: {
+                    //   value: '^[_.@A-Za-z0-9-]*$',
+                    //   errorMessage: translate('register.messages.validate.login.pattern')
+                    // },
                     minLength: {
                       value: 1,
                       errorMessage: translate('register.messages.validate.login.minlength')
@@ -90,43 +95,8 @@ export const UserManagementUpdate = (props: IUserManagementUpdateProps) => {
                       errorMessage: translate('register.messages.validate.login.maxlength')
                     }
                   }}
-                  value={user.login}
+                  value={user.name}
                 />
-              </AvGroup>
-              <AvGroup>
-                <Label for="firstName">
-                  <Translate contentKey="userManagement.firstName">First Name</Translate>
-                </Label>
-                <AvField
-                  type="text"
-                  className="form-control"
-                  name="firstName"
-                  validate={{
-                    maxLength: {
-                      value: 50,
-                      errorMessage: translate('entity.validation.maxlength', { max: 50 })
-                    }
-                  }}
-                  value={user.firstName}
-                />
-              </AvGroup>
-              <AvGroup>
-                <Label for="lastName">
-                  <Translate contentKey="userManagement.lastName">Last Name</Translate>
-                </Label>
-                <AvField
-                  type="text"
-                  className="form-control"
-                  name="lastName"
-                  validate={{
-                    maxLength: {
-                      value: 50,
-                      errorMessage: translate('entity.validation.maxlength', { max: 50 })
-                    }
-                  }}
-                  value={user.lastName}
-                />
-                <AvFeedback>This field cannot be longer than 50 characters.</AvFeedback>
               </AvGroup>
               <AvGroup>
                 <AvField
@@ -154,7 +124,38 @@ export const UserManagementUpdate = (props: IUserManagementUpdateProps) => {
                   value={user.email}
                 />
               </AvGroup>
-              <AvGroup check>
+              {isNew ?
+                <div>
+                  <AvField
+                    name="password"
+                    label={translate('global.form.newpassword.label')}
+                    placeholder={translate('global.form.newpassword.placeholder')}
+                    type="password"
+                    onChange={updatePassword}
+                    validate={{
+                      required: { value: true, errorMessage: translate('global.messages.validate.newpassword.required') },
+                      minLength: { value: 4, errorMessage: translate('global.messages.validate.newpassword.minlength') },
+                      maxLength: { value: 50, errorMessage: translate('global.messages.validate.newpassword.maxlength') }
+                    }}
+                  />
+                  <PasswordStrengthBar password={password} />
+                  <AvField
+                    name="confirmPassword"
+                    label={translate('global.form.confirmpassword.label')}
+                    placeholder={translate('global.form.confirmpassword.placeholder')}
+                    type="password"
+                    validate={{
+                      required: { value: true, errorMessage: translate('global.messages.validate.confirmpassword.required') },
+                      minLength: { value: 4, errorMessage: translate('global.messages.validate.confirmpassword.minlength') },
+                      maxLength: { value: 50, errorMessage: translate('global.messages.validate.confirmpassword.maxlength') },
+                      match: { value: 'password', errorMessage: translate('global.messages.error.dontmatch') }
+                    }}
+                  />
+                </div>
+                :
+                  null
+              }
+              {/* <AvGroup check>
                 <Label>
                   <AvInput type="checkbox" name="activated" value={user.activated} checked={user.activated} disabled={!user.id} />{' '}
                   <Translate contentKey="userManagement.activated">Activated</Translate>
@@ -183,7 +184,7 @@ export const UserManagementUpdate = (props: IUserManagementUpdateProps) => {
                     </option>
                   ))}
                 </AvInput>
-              </AvGroup>
+              </AvGroup> */}
               <Button tag={Link} to="/admin/user-management" replace color="info">
                 <FontAwesomeIcon icon="arrow-left" />
                 &nbsp;

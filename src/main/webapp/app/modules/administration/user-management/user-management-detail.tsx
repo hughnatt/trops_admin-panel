@@ -10,11 +10,11 @@ import { languages } from 'app/config/translation';
 import { getUser } from './user-management.reducer';
 import { IRootState } from 'app/shared/reducers';
 
-export interface IUserManagementDetailProps extends StateProps, DispatchProps, RouteComponentProps<{ login: string }> {}
+export interface IUserManagementDetailProps extends StateProps, DispatchProps, RouteComponentProps<{ id: string }> {}
 
 export const UserManagementDetail = (props: IUserManagementDetailProps) => {
   useEffect(() => {
-    props.getUser(props.match.params.login);
+    props.getUser(props.match.params.id);
   }, []);
 
   const { user } = props;
@@ -22,15 +22,15 @@ export const UserManagementDetail = (props: IUserManagementDetailProps) => {
   return (
     <div>
       <h2>
-        <Translate contentKey="userManagement.detail.title">User</Translate> [<b>{user.login}</b>]
+        <Translate contentKey="userManagement.detail.title">User</Translate> [<b>{user.email}</b>]
       </h2>
       <Row size="md">
         <dl className="jh-entity-details">
-          <dt>
+          {/* <dt>
             <Translate contentKey="userManagement.login">Login</Translate>
           </dt>
           <dd>
-            <span>{user.login}</span>&nbsp;
+            <span>{user.name}</span>&nbsp;
             {user.activated ? (
               <Badge color="success">
                 <Translate contentKey="userManagement.activated">Activated</Translate>
@@ -40,20 +40,20 @@ export const UserManagementDetail = (props: IUserManagementDetailProps) => {
                 <Translate contentKey="userManagement.deactivated">Deactivated</Translate>
               </Badge>
             )}
-          </dd>
+          </dd> */}
           <dt>
-            <Translate contentKey="userManagement.firstName">First Name</Translate>
+            <Translate contentKey="global.field.id">ID</Translate>
           </dt>
-          <dd>{user.firstName}</dd>
+          <dd>{user._id}</dd>
           <dt>
-            <Translate contentKey="userManagement.lastName">Last Name</Translate>
+            <Translate contentKey="userManagement.name">Name</Translate>
           </dt>
-          <dd>{user.lastName}</dd>
+          <dd>{user.name}</dd>
           <dt>
             <Translate contentKey="userManagement.email">Email</Translate>
           </dt>
           <dd>{user.email}</dd>
-          <dt>
+          {/* <dt>
             <Translate contentKey="userManagement.langKey">Lang Key</Translate>
           </dt>
           <dd>{user.langKey ? languages[user.langKey].name : undefined}</dd>
@@ -90,7 +90,7 @@ export const UserManagementDetail = (props: IUserManagementDetailProps) => {
                   ))
                 : null}
             </ul>
-          </dd>
+          </dd> */}
         </dl>
       </Row>
       <Button tag={Link} to="/admin/user-management" replace color="info">

@@ -110,6 +110,8 @@ const apiUrl = 'users';
 // Actions
 export const getUsers: ICrudGetAllAction<IUser> = (page, size, sort) => {
   const requestUrl = `${apiUrl}${sort ? `?page=${page}&size=${size}&sort=${sort}` : ''}`;
+  /* eslint-disable no-console */
+  console.log(requestUrl);
   return {
     type: ACTION_TYPES.FETCH_USERS,
     payload: axios.get<IUser>(requestUrl)
@@ -123,6 +125,8 @@ export const getRoles = () => ({
 
 export const getUser: ICrudGetAction<IUser> = id => {
   const requestUrl = `${apiUrl}/${id}`;
+  /* eslint-disable no-console */
+  console.log(requestUrl);
   return {
     type: ACTION_TYPES.FETCH_USER,
     payload: axios.get<IUser>(requestUrl)

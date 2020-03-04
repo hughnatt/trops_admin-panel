@@ -71,8 +71,6 @@ export default (state: AuthenticationState = initialState, action): Authenticati
         showModalLogin: true
       };
     case SUCCESS(ACTION_TYPES.GET_SESSION): {
-      /* eslint-disable no-console */
-      console.log(action);
       const isAuthenticated = action.payload && action.payload.data;
       action.payload.data.authorities = [AUTHORITIES.ADMIN];
       return {
@@ -106,7 +104,7 @@ export const displayAuthError = message => ({ type: ACTION_TYPES.ERROR_MESSAGE, 
 export const getSession = () => async (dispatch, getState) => {
   await dispatch({
     type: ACTION_TYPES.GET_SESSION,
-    payload: axios.get('users/me')
+    payload: axios.get('admin/me')
   });
 
   const { account } = getState().authentication;
@@ -119,7 +117,7 @@ export const getSession = () => async (dispatch, getState) => {
 export const login = (username, pwd, rememberMe = false) => async (dispatch, getState) => {
   const result = await dispatch({
     type: ACTION_TYPES.LOGIN,
-    payload: axios.post('users/login', { email: username, password: pwd })
+    payload: axios.post('admin/login', { login: username, password: pwd })
   });
   const bearerToken = result.value.data.token;
   if (rememberMe) {

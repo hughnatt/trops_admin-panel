@@ -1,12 +1,12 @@
 export interface IUser {
-  id?: any;
+  _id?: any;
   name?: string;
   email?: string;
   password?: string;
 }
 
 export const defaultValue: Readonly<IUser> = {
-  id: '',
+  _id: '',
   name: '',
   email: '',
   password: ''
