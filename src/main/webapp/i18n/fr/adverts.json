@@ -11,7 +11,14 @@
     },
     "home": {
       "title": "Annonces",
-      "createLabel": "Créer une annonce"
+      "createLabel": "Créer une annonce",
+      "createOrEditLabel": "Créer ou éditer une annonce"
+    },
+    "form": {
+      "description.label": "Description",
+      "description.placeholder": "Description par défaut",
+      "title.label": "Titre",
+      "title.placeholder": "Titre par défaut"
     }
   }
 }

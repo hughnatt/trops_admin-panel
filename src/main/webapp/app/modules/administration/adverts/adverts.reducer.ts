@@ -126,9 +126,12 @@ export const createAdvert: ICrudPutAction<IAdvert> = advert => async dispatch =>
 };
 
 export const updateAdvert: ICrudPutAction<IAdvert> = advert => async dispatch => {
+  /* eslint-disable no-console */
+  console.log(advert);
+  const requestUrl = `${apiUrl}/${advert._id}`;
   const result = await dispatch({
     type: ACTION_TYPES.UPDATE_ADVERT,
-    payload: axios.put(apiUrl, advert)
+    payload: axios.put(requestUrl, advert)
   });
   dispatch(getAdverts());
   return result;

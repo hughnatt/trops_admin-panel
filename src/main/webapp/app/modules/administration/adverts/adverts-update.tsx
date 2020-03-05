@@ -22,7 +22,6 @@ export const AdvertsUpdate = (props: IAdvertsUpdateProps) => {
     } else {
       props.getAdvert(props.match.params.id);
     }
-    // props.getRoles();
     return () => props.reset();
   }, []);
 
@@ -30,7 +29,7 @@ export const AdvertsUpdate = (props: IAdvertsUpdateProps) => {
     props.history.push('/admin/adverts');
   };
 
-  const saveUser = (event, values) => {
+  const saveAdvert = (event, values) => {
     if (isNew) {
       props.createAdvert(values);
     } else {
@@ -47,7 +46,7 @@ export const AdvertsUpdate = (props: IAdvertsUpdateProps) => {
       <Row className="justify-content-center">
         <Col md="8">
           <h1>
-            <Translate contentKey="userManagement.home.createOrEditLabel">Create or edit a User</Translate>
+            <Translate contentKey="adverts.home.createOrEditLabel">Create or edit an advert</Translate>
           </h1>
         </Col>
       </Row>
@@ -56,36 +55,35 @@ export const AdvertsUpdate = (props: IAdvertsUpdateProps) => {
           {loading ? (
             <p>Loading...</p>
           ) : (
-            <AvForm onValidSubmit={saveUser}>
+            <AvForm onValidSubmit={saveAdvert}>
               {advert._id ? (
                 <AvGroup>
                   <Label for="id">
                     <Translate contentKey="global.field.id">ID</Translate>
                   </Label>
-                  <AvField type="text" className="form-control" name="id" required readOnly value={advert._id} />
+                  <AvField type="text" className="form-control" name="_id" required readOnly value={advert._id} />
                 </AvGroup>
               ) : null}
               <AvGroup>
-                <Label for="name">
-                  <Translate contentKey="adverts.title">Title</Translate>
-                </Label>
                 <AvField
                   type="text"
                   className="form-control"
-                  name="name"
+                  label={translate('adverts.form.title.label')}
+                  placeholder={translate('adverts.form.title.placeholder')}
+                  name="title"
                   value={advert.title}
                 />
               </AvGroup>
               <AvGroup>
                 <AvField
                   name="description"
-                  label={translate('global.form.email.label')}
-                  placeholder={translate('global.form.email.placeholder')}
+                  label={translate('adverts.form.description.label')}
+                  placeholder={translate('adverts.form.description.placeholder')}
                   type="description"
                   value={advert.description}
                 />
               </AvGroup>
-              <Button tag={Link} to="/admin/user-management" replace color="info">
+              <Button tag={Link} to="/admin/adverts" replace color="info">
                 <FontAwesomeIcon icon="arrow-left" />
                 &nbsp;
                 <span className="d-none d-md-inline">
