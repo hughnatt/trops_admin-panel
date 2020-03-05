@@ -7,6 +7,7 @@ import applicationProfile, { ApplicationProfileState } from './application-profi
 
 import administration, { AdministrationState } from 'app/modules/administration/administration.reducer';
 import userManagement, { UserManagementState } from 'app/modules/administration/user-management/user-management.reducer';
+import adverts, { AdvertsState } from 'app/modules/administration/adverts/adverts.reducer';
 import categories, { CategoriesState } from 'app/modules/administration/categories/categories.reducer';
 import register, { RegisterState } from 'app/modules/account/register/register.reducer';
 import activate, { ActivateState } from 'app/modules/account/activate/activate.reducer';
@@ -21,6 +22,7 @@ export interface IRootState {
   readonly applicationProfile: ApplicationProfileState;
   readonly administration: AdministrationState;
   readonly userManagement: UserManagementState;
+  readonly adverts: AdvertsState;
   readonly categories: CategoriesState;
   readonly register: RegisterState;
   readonly activate: ActivateState;
@@ -37,6 +39,7 @@ const rootReducer = combineReducers<IRootState>({
   applicationProfile,
   administration,
   userManagement,
+  adverts,
   categories,
   register,
   activate,

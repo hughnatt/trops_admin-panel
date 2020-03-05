@@ -1,0 +1,17 @@
+{
+  "adverts": {
+    "title": "Titre",
+    "description": "Description",
+    "price": "Prix",
+    "delete": {
+      "question": "Etes-vous certain de vouloir supprimer cette annonce ?"
+    },
+    "detail": {
+      "title": "Annonce"
+    },
+    "home": {
+      "title": "Annonces",
+      "createLabel": "Créer une annonce"
+    }
+  }
+}

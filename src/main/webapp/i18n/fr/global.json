@@ -30,6 +30,7 @@
         "apidocs": "API",
         "database": "Base de données",
         "categories": "Catégories",
+        "adverts": "Annonces",
         "jhipster-needle-menu-add-admin-element": "JHipster will add additional menu entries here (do not translate!)"
       },
       "language": "Langue"
