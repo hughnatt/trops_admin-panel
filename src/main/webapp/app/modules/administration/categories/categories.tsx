@@ -18,8 +18,8 @@ export const Categories = (props : ICategoriesProps) => {
   const [pagination, setPagination] = useState(getSortState(props.location, ITEMS_PER_PAGE));
 
   useEffect(() => {
-    // props.getCategories(pagination.activePage - 1, pagination.itemsPerPage, `${pagination.sort},${pagination.order}`);
-    // props.history.push(`${props.location.pathname}?page=${pagination.activePage}&sort=${pagination.sort},${pagination.order}`);
+    props.getCategories(pagination.activePage - 1, pagination.itemsPerPage, `${pagination.sort},${pagination.order}`);
+    props.history.push(`${props.location.pathname}?page=${pagination.activePage}&sort=${pagination.sort},${pagination.order}`);
   }, [pagination]);
 
   const sort = p => () =>
@@ -40,55 +40,67 @@ export const Categories = (props : ICategoriesProps) => {
     <div>
       <h2 id="categories-page-heading">
         <Translate contentKey="categories.home.title">Categories</Translate>
-        {/* <Link to={`${match.url}/new`} className="btn btn-primary float-right jh-create-entity">
-          <FontAwesomeIcon icon="plus" /> <Translate contentKey="categories.home.createLabel">Create a new user</Translate>
-        </Link> */}
+        <Link to={`${match.url}/new`} className="btn btn-primary float-right jh-create-entity">
+          <FontAwesomeIcon icon="plus" /> <Translate contentKey="categories.home.createLabel">Create a new category</Translate>
+        </Link>
       </h2>
       <Table responsive striped>
         <thead>
           <tr>
-            <th className="hand" onClick={null}>
+            <th className="hand" onClick={sort('_id')}>
               <Translate contentKey="global.field.id">ID</Translate>
               <FontAwesomeIcon icon="sort" />
             </th>
-            <th className="hand" onClick={null}>
+            <th className="hand" onClick={sort('name')}>
               <Translate contentKey="categories.name">Name</Translate>
               <FontAwesomeIcon icon="sort" />
             </th>
-            <th className="hand" onClick={null}>
-              <Translate contentKey="categories.parent">Email</Translate>
+            <th className="hand" onClick={sort('description')}>
+              <Translate contentKey="categories.description">Description</Translate>
+              <FontAwesomeIcon icon="sort" />
+            </th>
+            <th className="hand" onClick={sort('parent')}>
+              <Translate contentKey="categories.parent">Parent</Translate>
+              <FontAwesomeIcon icon="sort" />
+            </th>
+            <th className="hand" onClick={sort('thumbnail')}>
+              <Translate contentKey="categories.thumbnail">Thumbnail</Translate>
               <FontAwesomeIcon icon="sort" />
             </th>
             <th />
           </tr>
         </thead>
         <tbody>
-          {categories.map((category, i) => (
-            <tr id={category.id} key={`category-${i}`}>
+          {categories.map((cat, i) => (
+            <tr id={cat._id} key={`category-${i}`}>
               <td>
-                <Button tag={Link} to={`${match.url}/${category.name}`} color="link" size="sm">
-                  {category.id}
+                <Button tag={Link} to={`${match.url}/${cat._id}`} color="link" size="sm">
+                  {cat._id}
                 </Button>
               </td>
-              <td>{category.parent}</td>
+              <td>{cat.name}</td>
+
+              <td>{cat.description}</td>
               
-              <td>{category.name}</td>
+              <td>{cat.parent}</td>
+
+              <td>{cat.thumbnail}</td>
 
               <td className="text-right">
                 <div className="btn-group flex-btn-group-container">
-                  <Button tag={Link} to={`${match.url}/${category.name}`} color="info" size="sm">
+                  <Button tag={Link} to={`${match.url}/${cat._id}`} color="info" size="sm">
                     <FontAwesomeIcon icon="eye" />{' '}
                     <span className="d-none d-md-inline">
                       <Translate contentKey="entity.action.view">View</Translate>
                     </span>
                   </Button>
-                  <Button tag={Link} to={`${match.url}/${category.name}/edit`} color="primary" size="sm">
+                  <Button tag={Link} to={`${match.url}/${cat._id}/edit`} color="primary" size="sm">
                     <FontAwesomeIcon icon="pencil-alt" />{' '}
                     <span className="d-none d-md-inline">
                       <Translate contentKey="entity.action.edit">Edit</Translate>
                     </span>
                   </Button>
-                  <Button tag={Link} to={`${match.url}/${category.name}/delete`} color="danger"  size="sm">
+                  <Button tag={Link} to={`${match.url}/${cat._id}/delete`} color="danger"  size="sm">
                     <FontAwesomeIcon icon="trash" />{' '}
                     <span className="d-none d-md-inline">
                       <Translate contentKey="entity.action.delete">Delete</Translate>

@@ -1,9 +1,29 @@
 {
   "categories": {
     "home": {
-      "title": "Catégories"
+      "title": "Catégories",
+      "createLabel": "Créer une catégorie",
+      "createOrEditLabel": "Créer ou éditer une catégorie"
+    },
+    "delete": {
+      "question": "Etes-vous certain de vouloir cette catégorie et ses sous-catégories ?"
+    },
+    "form": {
+      "description.label": "Description",
+      "description.placeholder": "Description par défaut",
+      "name.label": "Nom",
+      "name.placeholder": "Nom par défaut",
+      "parent.label": "Parent",
+      "parent.placeholder": "Aucun parent",
+      "thumbnail.label": "Illustration",
+      "thumbnail.placeholder": "Pas d'illustration"
+    },
+    "detail": {
+      "title": "Catégorie"
     },
     "name": "Nom",
-    "parent": "Parent"
+    "parent": "Parent",
+    "thumbnail": "Illustration",
+    "description": "Description"
   }
 }

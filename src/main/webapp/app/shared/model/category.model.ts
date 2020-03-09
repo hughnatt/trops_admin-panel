@@ -1,11 +1,15 @@
 export interface ICategory {
-  id?: string;
+  _id?: string;
   name?: string;
-  parent?: string;
+  parent: string;
+  thumbnail?: string;
+  description?: string;
 }
 
 export const defaultValue: Readonly<ICategory> = {
-  id: '',
+  _id: '',
   name: '',
-  parent: ''
+  parent: '',
+  thumbnail: '',
+  description: ''
 };
