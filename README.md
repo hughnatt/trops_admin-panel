@@ -1,150 +1,73 @@
-# trops_webadmin
+# TROPS Panneau d'administration
 
-This application was generated using JHipster 6.7.1, you can find documentation and help at [https://www.jhipster.tech/documentation-archive/v6.7.1](https://www.jhipster.tech/documentation-archive/v6.7.1).
+Cette application a été générée grâce à [JHipster 6.7.1](https://www.jhipster.tech/documentation-archive/v6.7.1).
+Il s'agit d'une application web écrite en React.
 
-## Development
+## Développement
 
-Before you can build this project, you must install and configure the following dependencies on your machine:
+_Node.js_ et son gestionnaire de paquets _npm_ doivent être installés.
 
-1. [Node.js][]: We use Node to run a development web server and build the project.
-   Depending on your system, you can install Node either from source or as a pre-packaged bundle.
+Pour vérifier si les programmes sont installés, utilisez ces commandes:
 
-After installing Node, you should be able to run the following command to install development tools.
-You will only need to run this command when dependencies change in [package.json](package.json).
+    node --version
+    npm --version
 
+Après l'installation de Node, il est nécessaire d'installer les dépendances et les outils de développement grâce à la commande suivante:
+    
     npm install
 
-We use npm scripts and [Webpack][] as our build system.
 
-Run the following commands in two separate terminals to create a blissful development experience where your browser
-auto-refreshes when files change on your hard drive.
+Cette commande va lire les dépendances indiquées dans [package.json](package.json).
+En cas de changement dans ce fichier, il faudra réexécuter la commande.
+
+
+Ce projet utilise des scripts npm présents dans [package.json](package.json) et [Webpack][] comme système de compilation.
+
+Les commandes suivantes sont équivalents et exécuteront le script 'start'
 
     npm start
+    npm run start
 
-Npm is also used to manage CSS and JavaScript dependencies used in this application. You can upgrade dependencies by
-specifying a newer version in [package.json](package.json). You can also run `npm update` and `npm install` to manage dependencies.
-Add the `help` flag on any command to see how you can use it. For example, `npm help update`.
+Cela démarrera l'environnement de développement et ouvrira une fenêtre web. Le système se recompile automatiquement lors d'un changement de fichier source.
 
-The `npm run` command will list all of the scripts available to run for this project.
 
-### PWA Support
+## Production
+src/main/webapp/app/config/
+Pour compiler le projet en mode production, il faut exécuter la commande suivante:
 
-JHipster ships with PWA (Progressive Web App) support, and it's turned off by default. One of the main components of a PWA is a service worker.
+    npm run webpack:prod
+    
+La commande est assez longue à exécuter.
 
-The service worker initialization code is commented out by default. To enable it, uncomment the following code in `src/main/webapp/index.html`:
+Un [Dockerfile](Dockerfile) est présent dans le projet.  
+Il permet d'effectuer la compilation de l'application web pour un environnement de production et de servir la page web via un serveur [nginx](https://nginx.org).
 
-```html
-<script>
-  if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.register('./service-worker.js').then(function() {
-      console.log('Service Worker Registered');
-    });
-  }
-</script>
-```
+La commande suivante permet de créer une image Docker nommée trops_admin-panel à partir du dossier courant:
 
-Note: [Workbox](https://developers.google.com/web/tools/workbox/) powers JHipster's service worker. It dynamically generates the `service-worker.js` file.
+    docker build -t trops-admin-panel .
 
-### Managing dependencies
+Le déploiement peut s'effectuer grâce à la commande suivante:
+    
+    docker create --name trops-admin-panel-1 -p 8080:80 trops_admin-panel
 
-For example, to add [Leaflet][] library as a runtime dependency of your application, you would run following command:
+Cette commande aura pour effet de créer un conteneur Docker nommé _trops-admin-panel-1_ qui publie son port interne 80 vers le port 8080 de la machine.    
+Pour démarrer le contener, on utilise la commande suivane
 
-    npm install --save --save-exact leaflet
+    docker start trops-admin-panel-1
 
-To benefit from TypeScript type definitions from [DefinitelyTyped][] repository in development, you would run following command:
+Le site est alors accessible sur [localhost:8080]()
 
-    npm install --save-dev --save-exact @types/leaflet
+Pour stopper le conteneur
 
-Then you would import the JS and CSS files specified in library's installation instructions so that [Webpack][] knows about them:
-Note: There are still a few other things remaining to do for Leaflet that we won't detail here.
+    docker stop trops-admin-panel-1
 
-For further instructions on how to develop with JHipster, have a look at [Using JHipster in development][].
 
-## Building for production
 
-### Packaging as jar
+Plus d'infos sur dans notre documentation Docker (lien à venir).
 
-To build the final jar and optimize the trops_webadmin application for production, run:
 
-This will concatenate and minify the client CSS and JavaScript files. It will also modify `index.html` so it references these new files.
-To ensure everything worked, run:
 
-Then navigate to [http://localhost:](http://localhost:) in your browser.
+## Nom de domaine
 
-Refer to [Using JHipster in production][] for more details.
-
-### Packaging as war
-
-To package your application as a war in order to deploy it to an application server, run:
-
-## Testing
-
-To launch your application's tests, run:
-
-    ./gradlew test integrationTest jacocoTestReport
-
-### Client tests
-
-Unit tests are run by [Jest][] and written with [Jasmine][]. They're located in [src/test/javascript/](src/test/javascript/) and can be run with:
-
-    npm test
-
-For more information, refer to the [Running tests page][].
-
-### Code quality
-
-Sonar is used to analyse code quality. You can start a local Sonar server (accessible on http://localhost:9001) with:
-
-```
-docker-compose -f src/main/docker/sonar.yml up -d
-```
-
-You can run a Sonar analysis with using the [sonar-scanner](https://docs.sonarqube.org/display/SCAN/Analyzing+with+SonarQube+Scanner).
-
-Then, run a Sonar analysis:
-
-For more information, refer to the [Code quality page][].
-
-## Using Docker to simplify development (optional)
-
-You can use Docker to improve your JHipster development experience. A number of docker-compose configuration are available in the [src/main/docker](src/main/docker) folder to launch required third party services.
-
-For example, to start a mongodb database in a docker container, run:
-
-    docker-compose -f src/main/docker/mongodb.yml up -d
-
-To stop it and remove the container, run:
-
-    docker-compose -f src/main/docker/mongodb.yml down
-
-You can also fully dockerize your application and all the services that it depends on.
-To achieve this, first build a docker image of your app by running:
-
-Then run:
-
-    docker-compose -f src/main/docker/app.yml up -d
-
-For more information refer to [Using Docker and Docker-Compose][], this page also contains information on the docker-compose sub-generator (`jhipster docker-compose`), which is able to generate docker configurations for one or several JHipster applications.
-
-## Continuous Integration (optional)
-
-To configure CI for your project, run the ci-cd sub-generator (`jhipster ci-cd`), this will let you generate configuration files for a number of Continuous Integration systems. Consult the [Setting up Continuous Integration][] page for more information.
-
-[jhipster homepage and latest documentation]: https://www.jhipster.tech
-[jhipster 6.7.1 archive]: https://www.jhipster.tech/documentation-archive/v6.7.1
-[using jhipster in development]: https://www.jhipster.tech/documentation-archive/v6.7.1/development/
-[using docker and docker-compose]: https://www.jhipster.tech/documentation-archive/v6.7.1/docker-compose
-[using jhipster in production]: https://www.jhipster.tech/documentation-archive/v6.7.1/production/
-[running tests page]: https://www.jhipster.tech/documentation-archive/v6.7.1/running-tests/
-[code quality page]: https://www.jhipster.tech/documentation-archive/v6.7.1/code-quality/
-[setting up continuous integration]: https://www.jhipster.tech/documentation-archive/v6.7.1/setting-up-ci/
-[node.js]: https://nodejs.org/
-[yarn]: https://yarnpkg.org/
-[webpack]: https://webpack.github.io/
-[angular cli]: https://cli.angular.io/
-[browsersync]: https://www.browsersync.io/
-[jest]: https://facebook.github.io/jest/
-[jasmine]: https://jasmine.github.io/2.0/introduction.html
-[protractor]: https://angular.github.io/protractor/
-[leaflet]: https://leafletjs.com/
-[definitelytyped]: https://definitelytyped.org/
+Le nom de domaine utilisé par défaut pour accéeder à l'API est api.trops.space  
+Il est possible de le modifier dans le fichier [src/main/webapp/app/config/constants.ts]()
